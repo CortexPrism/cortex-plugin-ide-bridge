@@ -1,0 +1,164 @@
+{
+  "name": "cortex-plugin-ide-bridge",
+  "version": "1.0.0",
+  "description": "IDE Extension Bridge — native Cortex agent integration for VS Code, JetBrains, and Cursor. Invoke Cortex from your editor, stream results back inline, and manipulate editor state (open files, set breakpoints, run tests at cursor).",
+  "kind": "esm",
+  "entryPoint": "mod.ts",
+  "runtime": "deno",
+  "author": "CortexPrism",
+  "license": "MIT",
+  "repository": "https://github.com/CortexPrism/cortex-plugin-ide-bridge",
+  "homepage": "https://cortexprism.io/marketplace/plugins/ide-bridge",
+  "capabilities": ["tools", "fs:read", "fs:write", "shell:run"],
+  "tools": [
+    {
+      "name": "ide_get_context",
+      "description": "Get the current IDE context: open files, cursor position, selected text, active breakpoints, and terminal state",
+      "params": [
+        {
+          "name": "editor",
+          "type": "string",
+          "description": "IDE/Editor",
+          "required": false,
+          "enum": ["vscode", "jetbrains", "cursor", "auto"]
+        },
+        {
+          "name": "include_terminal",
+          "type": "boolean",
+          "description": "Include terminal history",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "ide_edit_file",
+      "description": "Open and edit a file at a specific line/range in the IDE, with optional diff preview",
+      "params": [
+        {
+          "name": "file_path",
+          "type": "string",
+          "description": "Absolute or workspace-relative path",
+          "required": true
+        },
+        {
+          "name": "line_start",
+          "type": "number",
+          "description": "Starting line number",
+          "required": false
+        },
+        {
+          "name": "line_end",
+          "type": "number",
+          "description": "Ending line number",
+          "required": false
+        },
+        {
+          "name": "content",
+          "type": "string",
+          "description": "New content to insert/replace",
+          "required": false
+        },
+        {
+          "name": "preview",
+          "type": "boolean",
+          "description": "Show diff preview before applying",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "ide_run_command",
+      "description": "Execute an IDE command: run tests, build project, start debugger, open terminal",
+      "params": [
+        {
+          "name": "command",
+          "type": "string",
+          "description": "IDE command or command palette entry",
+          "required": true
+        },
+        {
+          "name": "editor",
+          "type": "string",
+          "description": "IDE/Editor",
+          "required": false,
+          "enum": ["vscode", "jetbrains", "cursor", "auto"]
+        },
+        {
+          "name": "args",
+          "type": "string",
+          "description": "JSON arguments for the command",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "ide_search_codebase",
+      "description": "Search the open workspace using IDE-native search with file type and symbol filters",
+      "params": [
+        { "name": "query", "type": "string", "description": "Search query", "required": true },
+        {
+          "name": "search_type",
+          "type": "string",
+          "description": "Search type",
+          "required": false,
+          "enum": ["text", "symbol", "file", "reference"]
+        },
+        {
+          "name": "file_pattern",
+          "type": "string",
+          "description": "Glob pattern for file filtering",
+          "required": false
+        }
+      ]
+    }
+  ],
+  "dependencies": {},
+  "peerDependencies": { "cortex": ">=1.0.0" },
+  "ui": {
+    "settings": [
+      {
+        "section": "VS Code",
+        "fields": [
+          {
+            "key": "vscodeEnabled",
+            "label": "Enable VS Code Bridge",
+            "type": "boolean",
+            "defaultValue": true
+          }
+        ]
+      },
+      {
+        "section": "JetBrains",
+        "fields": [
+          {
+            "key": "jetbrainsEnabled",
+            "label": "Enable JetBrains Bridge",
+            "type": "boolean",
+            "defaultValue": false
+          }
+        ]
+      },
+      {
+        "section": "Behavior",
+        "fields": [
+          {
+            "key": "autoOpenFiles",
+            "label": "Auto-open files on edit",
+            "type": "boolean",
+            "defaultValue": true
+          },
+          {
+            "key": "confirmDestructive",
+            "label": "Confirm destructive edits",
+            "type": "boolean",
+            "defaultValue": true
+          }
+        ]
+      }
+    ]
+  },
+  "aiDisclosure": {
+    "tools": ["Kilo (DeepSeek) — scaffold and implementation"],
+    "humanReview": true
+  }
+}
