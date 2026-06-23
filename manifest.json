@@ -1,7 +1,7 @@
 {
   "name": "cortex-plugin-ide-bridge",
-  "version": "1.0.0",
-  "description": "IDE Extension Bridge — native Cortex agent integration for VS Code, JetBrains, and Cursor. Invoke Cortex from your editor, stream results back inline, and manipulate editor state (open files, set breakpoints, run tests at cursor).",
+  "version": "1.0.1",
+  "description": "IDE Extension Bridge \u2014 native Cortex agent integration for VS Code, JetBrains, and Cursor. Invoke Cortex from your editor, stream results back inline, and manipulate editor state (open files, set breakpoints, run tests at cursor).",
   "kind": "esm",
   "entryPoint": "mod.ts",
   "runtime": "deno",
@@ -9,7 +9,12 @@
   "license": "MIT",
   "repository": "https://github.com/CortexPrism/cortex-plugin-ide-bridge",
   "homepage": "https://cortexprism.io/marketplace/plugins/ide-bridge",
-  "capabilities": ["tools", "fs:read", "fs:write", "shell:run"],
+  "capabilities": [
+    "tools",
+    "fs:read",
+    "fs:write",
+    "shell:run"
+  ],
   "tools": [
     {
       "name": "ide_get_context",
@@ -20,7 +25,12 @@
           "type": "string",
           "description": "IDE/Editor",
           "required": false,
-          "enum": ["vscode", "jetbrains", "cursor", "auto"]
+          "enum": [
+            "vscode",
+            "jetbrains",
+            "cursor",
+            "auto"
+          ]
         },
         {
           "name": "include_terminal",
@@ -81,7 +91,12 @@
           "type": "string",
           "description": "IDE/Editor",
           "required": false,
-          "enum": ["vscode", "jetbrains", "cursor", "auto"]
+          "enum": [
+            "vscode",
+            "jetbrains",
+            "cursor",
+            "auto"
+          ]
         },
         {
           "name": "args",
@@ -95,13 +110,23 @@
       "name": "ide_search_codebase",
       "description": "Search the open workspace using IDE-native search with file type and symbol filters",
       "params": [
-        { "name": "query", "type": "string", "description": "Search query", "required": true },
+        {
+          "name": "query",
+          "type": "string",
+          "description": "Search query",
+          "required": true
+        },
         {
           "name": "search_type",
           "type": "string",
           "description": "Search type",
           "required": false,
-          "enum": ["text", "symbol", "file", "reference"]
+          "enum": [
+            "text",
+            "symbol",
+            "file",
+            "reference"
+          ]
         },
         {
           "name": "file_pattern",
@@ -113,7 +138,9 @@
     }
   ],
   "dependencies": {},
-  "peerDependencies": { "cortex": ">=1.0.0" },
+  "peerDependencies": {
+    "cortex": ">=0.51.0"
+  },
   "ui": {
     "settings": [
       {
@@ -158,7 +185,9 @@
     ]
   },
   "aiDisclosure": {
-    "tools": ["Kilo (DeepSeek) — scaffold and implementation"],
+    "tools": [
+      "Kilo (DeepSeek) \u2014 scaffold and implementation"
+    ],
     "humanReview": true
   }
 }
